@@ -5,10 +5,6 @@ from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import User
 
-
-
-
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
