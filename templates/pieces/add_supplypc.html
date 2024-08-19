@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %}
+<!--  -->
+{% block title %} Add {% endblock %}
+<!--  -->
+{% block body %}
+
+<!--  -->
+{% include 'partials/sidebar.html' %}
+<!--  -->
+{% if success %}
+<div class="alert alert-dismissible alert-success">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>Well done!</strong> Added successfully !!
+  <a href="{% url 'indexpc' %}" class="alert-link">Go back to Home ? </a>.
+</div>
+{% else %}
+
+<div class="container d-flex justify-content-center align-items-center h-100">
+  <div class="card mx-auto col-lg-4">
+    <div class="card-header text-center">
+      <strong>Product Name: {{ product.product }}</strong>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %} {{ form|crispy }}
+        <button type="submit" class="btn btn-primary btn-block">Add</button>
+        <a href="{% url 'indexpc' %}" class="btn btn-danger btn-block"
+          >Cancel</a
+        >
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!--  -->
+{% endblock %}

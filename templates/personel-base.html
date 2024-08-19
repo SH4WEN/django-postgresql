@@ -1,0 +1,72 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home Page</title>
+    <link
+      href="https://bootswatch.com/5/spacelab/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <style>
+      .form-control {
+        border-radius: 10px;
+        box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.164),
+          5px 5px 15px rgba(1, 58, 34, 0.26);
+      }
+      .navbar-toggler {
+        border-radius: 10px;
+        box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.164),
+          5px 5px 15px rgba(1, 58, 34, 0.26);
+      }
+      .btn {
+        border-radius: 10px;
+        box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.164),
+          5px 5px 15px rgba(1, 58, 34, 0.4);
+      }
+      .card {
+        border-radius: 10px;
+        box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.164),
+          5px 5px 15px rgba(1, 58, 34, 0.4);
+      }
+    </style>
+  </head>
+  <body onload="noBack()">
+    {% block body %} {% endblock %}
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- <script>
+    window.history.forward();
+    function noBack() {
+      window.history.forward();
+    }
+  </script> -->
+</html>

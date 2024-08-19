@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load crispy_forms_tags %}
+<!--  -->
+{% block title %}HOME{%endblock %}
+
+<!--  -->
+
+{% block index %}
+
+<!--  -->
+{% include 'partials/sidebar.html' %}
+<!--  -->
+
+<div class="row mx-3 mt-3">
+ 
+  <div class="col-12">
+    {% if supply %}
+    <div class="card border-primary ">
+        <h3>
+          <div class="card-header"> All Products 
+            <a href="{% url 'add_supply' %}">
+              <button type="button" class="btn btn-success">
+                <i class="bi bi-cart-plus-fill fa-lg"></i>
+              </button> 
+            </a>
+          </div> 
+        </h3>
+        <div class="card-body">
+            <p class="card-text">
+                <div class="table-responsive ">
+                    <table class="table table-hover ">
+                        <thead>
+                            <tr>
+                                
+                                <th scope="col" class="text-center" >Product Date</th>
+                                <th scope="col" class="text-center">Product Name</th>
+                                <th scope="col" class="text-center">Product Quantity</th>
+                                <th scope="col" class="text-center">Product Price</th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for supply in supply %}
+                            <tr>
+                                <td class="text-center">{{ supply.product_date |date:"m/d/y" }}</td>
+                                <td class="text-center">{{ supply.product }}</td>
+                                <td class="text-center">{{ supply.quantity }}</td>
+                                <td class="text-center">{{ supply.price }}</td>
+                                
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </p>
+        </div>
+    </div>
+    {% else %}
+    <h3 class="text-center">
+      <div class="card-header"> There's no Products !!!
+        <a href="{% url 'add_supply' %}">
+          <button type="button" class="btn btn-success">
+            
+            <i class="bi bi-cart-plus-fill fa-lg"></i>
+          </button> 
+        </a>
+      </div> 
+    </h3>
+    {% endif %}                   
+</div>
+
+
+
+</div>
+
+{% endblock %}
+
+

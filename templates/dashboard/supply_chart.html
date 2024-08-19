@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load crispy_forms_tags %}
+<!--  -->
+{% block title %}Supply{%endblock %}
+<!--  -->
+{% block index %}
+
+<!--  -->
+{% include 'partials/sidebar.html' %}
+<div class="row mx-3 mt-3">
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card">
+      <div class="card-body">
+        <div>
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+          const ctx = document.getElementById('barChart');
+          const labels = {{ labels|safe }};
+          const data = {{ data|safe }};
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'price',
+                data: data,
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        </script>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <div>
+          <canvas id="pieChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+          const bar_labels = {{ labels|safe }};
+          const bar_data = {{ data|safe }};
+
+          const pieConfig = {
+            type: 'pie',
+            data: {
+              labels: bar_labels,
+              datasets: [{
+                label: 'price',
+                data: bar_data,
+                backgroundColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(54, 162, 235)',
+                  'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+              }]
+            },
+          };
+          const pieCtx = document.getElementById('pieChart');
+          new Chart(pieCtx, pieConfig);
+        </script>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Donut Chart</h5>
+        <div>
+          <canvas id="donutChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+          const d_labels = {{ labels|safe }};
+          const d_data = {{ data|safe }};
+          const donutConfig = {
+            type: 'doughnut',
+            data: {
+              labels:d_labels,
+              datasets: [{
+                label: 'My First Dataset',
+                data: d_data,
+                backgroundColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(54, 162, 235)',
+                  'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+              }]
+            },
+            options: {
+              cutoutPercentage: 40
+            }
+          };
+          const donutCtx = document.getElementById('donutChart');
+          new Chart(donutCtx, donutConfig);
+        </script>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load crispy_forms_tags %}
+<!--  -->
+{% block title %}HOME{%endblock %}
+
+<!--  -->
+
+{% block index %}
+
+<!--  -->
+{% include 'partials/sidebar.html' %}
+<!--  -->
+
+<div class="row mx-3 mt-3">
+  <div class="col-sm-9 mb-3 mb-sm-0">
+    <div class="card">
+      <div class="card-body">
+        {% if products %}
+        <div class="d-flex flex-column flex-lg-row justify-content-start ms-3">
+          <a
+            class="btn btn-primary"
+            type="button"
+            href="{% url 'add_product' %}"
+          >
+            <i class="bi bi-node-plus" style="font-size: 14px"></i> Add+
+            Products:
+          </a>
+
+          <div class="ms-lg-5 mt-3 text-center">
+            <h5><strong>Products in Weights</strong></h5>
+          </div>
+        </div>
+
+        {% else %}
+
+        <div class="d-flex flex-column flex-lg-row justify-content-start ms-3">
+          <a
+            class="btn btn-primary"
+            type="button"
+            href="{% url 'add_product' %}"
+          >
+            <i class="bi bi-node-plus" style="font-size: 14px"></i> Add+
+            Products:
+          </a>
+
+          <div class="ms-lg-5 mt-3 text-center">
+            <h5><strong>Products in Weights</strong></h5>
+          </div>
+        </div>
+        <p class="text-center justify-content-center">no products</p>
+
+        {% endif %}
+
+        <div class="card-body">
+          <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3">
+            {% for product in products %}
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="d-flex flex-column">
+                    <div class="float-end">
+                      <a
+                        href="{% url 'edit' product.id %}"
+                        class="btn btn-sm btn-warning me-1"
+                        style="font-size: 14px"
+                      >
+                        <i
+                          class="bi bi-pencil-square"
+                          style="font-size: 14px"
+                        ></i>
+                      </a>
+                    </div>
+
+                    <h4 class="mt-2">
+                      <strong class="card-title">{{ product.product }}</strong>
+                    </h4>
+
+                    <p>
+                      <!--  -->
+                      <strong> Branch: {{ product.branch }}</strong>
+                    </p>
+
+                    <p>
+                      <strong> Quantity: {{ product.total_quantity }}</strong>
+                      <strong> {{ product.unit }}</strong>
+                    </p>
+
+                    <!-- MODAL COMPONENTS -->
+                    <div
+                      class="modal"
+                      id="myModal{{products.id}}"
+                      tabindex="-1"
+                      aria-labelledby="myModalLabael1"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">
+                              <strong>products: {{ product.product }}</strong>
+                            </h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true"></span>
+                            </button>
+                          </div>
+                          <div
+                            class="modal-body"
+                            style="text-align: left !important"
+                          >
+                            <ul class="list-unstyled">
+                              <li>
+                                products Name:
+                                <strong>{{ product.product }}</strong>
+                              </li>
+                              <li>
+                                products Description:
+                                <strong>{{ product.description }}</strong>
+                              </li>
+                              <li>
+                                Branch:
+                                <strong>{{ product.branch }}</strong>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-primary"
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ... modal code ... -->
+
+                    <!-- ... delete modal code ... -->
+                    <div
+                      class="modal"
+                      id="delete{{product.id}}"
+                      tabindex="-1"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 id="myModalLabael2" class="modal-title">
+                              <strong>Product: {{ product.product }}</strong>
+                            </h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true"></span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              <strong
+                                >Are you sure to delete this product?</strong
+                              >
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <form
+                              action="{% url 'delete' product.id %}"
+                              method="POST"
+                            >
+                              {% csrf_token %}
+                              <input
+                                type="submit"
+                                class="btn btn-primary"
+                                value="Delete"
+                              />
+                            </form>
+                            <button
+                              type="button"
+                              class="btn btn-danger text-center"
+                              data-bs-dismiss="modal"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Add tree icon at the bottom-right -->
+                  <div class="d-flex justify-content-start flex-row me-2">
+                    <a
+                      class="btn btn-sm btn-primary me-1"
+                      style="font-size: 15px"
+                      type="button"
+                      href="{% url 'add_supply_for_product' product.id %}"
+                    >
+                      <i class="bi bi-node-plus"></i>
+                    </a>
+
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-success me-1 text-center"
+                      href="{% url 'view' product.id %}"
+                      data-bs-toggle="modal"
+                      data-bs-target="#myModal{{products.id}}"
+                    >
+                      <i
+                        class="bi bi-info-circle-fill"
+                        style="font-size: 14px"
+                      ></i>
+                    </button>
+                    <button
+                      class="btn btn-sm btn-danger text-center"
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target=" #delete{{product.id}}"
+                    >
+                      <i class="bi bi-trash-fill" style="font-size: 14px"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card">
+        <div class="card-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total quantity of products</h5>
+        <div>
+          <canvas id="pieChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+          const bar_labels = {{ labels|safe }};
+          const bar_data = {{ data|safe }};
+
+          const pieConfig = {
+            type: 'pie',
+            data: {
+              labels: bar_labels,
+              datasets: [{
+                label: 'quantity',
+                data: bar_data,
+                backgroundColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(54, 162, 235)',
+                  'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+              }]
+            },
+          };
+          const pieCtx = document.getElementById('pieChart');
+          new Chart(pieCtx, pieConfig);
+        </script>
+        <h5>Total quantity: {{ total_quantity }}</h5>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load crispy_forms_tags %}
+<!--  -->
+{% block title %}HOME{% endblock %}
+<!--  -->
+{% block index %}
+<!--  -->
+{% include 'partials/sidebar.html' %}
+
+<div class="row mx-3 mt-3">
+  <div class="col-sm-9 mb-3 mb-sm-0">
+    <div class="card">
+      <div class="card-body">
+        {% if supply_products %}
+        <div class="card-body">
+          <div class="row row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-3">
+            {% for product in supply_products %}
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h4 class="mt-2">
+                    <strong class="card-title">{{ product.product }}</strong>
+                  </h4>
+
+                  <p>
+                    <!--  -->
+                    <strong> Branch: {{ product.branch }}</strong>
+                  </p>
+
+                  <p>
+                    <strong> Quantity: {{ product.total_quantity }}</strong>
+                    <strong> {{ product.unit }}</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
+        <p class="text-center justify-content-center">no products</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <!-- chart -->
+        <canvas id="pieChart"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+          const bar_labels = {{ supply_labels|safe }};
+          const bar_data = {{ supply_data|safe }};
+
+          const pieConfig = {
+            type: 'pie',
+            data: {
+              labels: bar_labels,
+              datasets: [{
+                label: 'quantity',
+                data: bar_data,
+                backgroundColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(54, 162, 235)',
+                  'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+              }]
+            },
+          };
+          const pieCtx = document.getElementById('pieChart');
+          new Chart(pieCtx, pieConfig);
+        </script>
+        <h5>Total quantity: {{ supply_total_quantity }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total quantity of products</h5>
+        <canvas id="pieChart2"></canvas>
+        <script>
+          const bar_labels = {{ productPieces_labels|safe }};
+          const bar_data = {{ productPieces_data|safe }};
+
+          const pieConfig = {
+            type: 'pie',
+            data: {
+              labels: bar_labels,
+              datasets: [{
+                label: 'quantity',
+                data: bar_data,
+                backgroundColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(54, 162, 235)',
+                  'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+              }]
+            },
+          };
+          const pieCtx = document.getElementById('pieChart2');
+          new Chart(pieCtx, pieConfig);
+        </script>
+        <h5>Total quantity: {{ productPieces_total_quantity }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
